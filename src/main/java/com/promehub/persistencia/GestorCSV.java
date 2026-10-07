@@ -16,7 +16,7 @@ public class GestorCSV {
 
     private static final int NUM_CAMPOS = 7;
 
-    public ResultadoCarga leer(Path ruta) throws IOException {
+    public ResultadoCarga procesarArchivo(Path ruta) throws IOException {
         if (!Files.exists(ruta)) {
             throw new FileNotFoundException("No existe el fichero: " + ruta.toAbsolutePath());
         }
