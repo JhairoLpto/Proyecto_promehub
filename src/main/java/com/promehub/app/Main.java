@@ -12,7 +12,7 @@ public class Main {
         do {
             entradaUser = sc.pedirNumero("""
                     ========================================
-                    PROMEHUB DATA EXCHANGE
+                             PROMEHUB DATA EXCHANGE
                     ========================================
                     1. Cargar catálogo desde CSV
                     2. Mostrar catálogo
@@ -27,14 +27,15 @@ public class Main {
             switch (entradaUser) {
                 case 1:
 
+                    break;
                 case 2:
-
+                    break;
                 case 3:
-
+                    break;
                 case 4:
-
+                    break;
                 case 5:
-
+                    break;
                 case 6:
                     int tipoVarVideojuego = sc.pedirNumero("""
                         ========================================
@@ -42,21 +43,23 @@ public class Main {
                         ========================================
                         1. Buscar por id
                         2. Buscar por título
-                            """);
+                        """);
                     if (tipoVarVideojuego == 1) {
 
                     } else if (tipoVarVideojuego == 2) {
-                        
+
                     }else{
                         System.out.println("Escoja una opción válida");
                     }
-
+                    break;
                 case 7:
-
+                    break;
                 case 0:
                     System.out.println("Saliendo del programa...");
+                    break;
                 default:
                     System.out.println("Escoja una opción válida");
+                    break;
             }
         } while (entradaUser != 0);
     }

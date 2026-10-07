@@ -28,11 +28,11 @@ public class GestorCSV {
         List<String> errores = new ArrayList<>();
         int lineasLeidas = 0;
 
-        try (BufferedReader lector = Files.newBufferedReader(ruta, StandardCharsets.UTF_8)) {
-            lector.readLine();                      // saltar la cabecera
+        try (BufferedReader bf = Files.newBufferedReader(ruta, StandardCharsets.UTF_8)) {
+            bf.readLine();
             String linea;
-            int numLinea = 1;                       // la cabecera es la línea 1
-            while ((linea = lector.readLine()) != null) {
+            int numLinea = 1;
+            while ((linea = bf.readLine()) != null) {
                 numLinea++;
                 if (linea.isBlank()) {
                     continue;
