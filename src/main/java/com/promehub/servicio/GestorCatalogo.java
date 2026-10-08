@@ -26,28 +26,21 @@ public class GestorCatalogo {
     }
     
     // Opciones del menú
-    public void cargarDesdeCSV(String rutaFichero) throws Exception {
+    public ResultadoCarga cargarDesdeCSV(String rutaFichero) throws Exception {
         Path ruta = Paths.get(rutaFichero);
         ResultadoCarga resultado = gestorCSV.procesarArchivo(ruta);
         this.catalogo = new Catalogo(resultado.getValidos());
-        
-        System.out.println("Líneas leídas: " + resultado.getLineasLeidas());
-        System.out.println("Juegos cargados: " + resultado.getValidos().size());
-        if (!resultado.getErrores().isEmpty()) {
-            System.out.println("Errores encontrados: " + resultado.getErrores().size());
-        }
+        return resultado;
     }
     
     public void exportarXml(String rutaFichero) throws Exception {
         Path ruta = Paths.get(rutaFichero);
         gestorXML.exportarXml(this.catalogo, ruta);
-        System.out.println("Catálogo exportado con éxito a XML.");
     }
     
     public void cargarDesdeXml(String rutaFichero) throws Exception {
         Path ruta = Paths.get(rutaFichero);
         this.catalogo = gestorXML.importarXml(ruta);
-        System.out.println("Catálogo cargado con éxito desde XML.");
     }
     
     public void exportarCsv(String rutaFichero) throws Exception {
@@ -56,7 +49,6 @@ public class GestorCatalogo {
         }
         Path ruta = Paths.get(rutaFichero);
         gestorCSV.exportarArchivo(ruta, this.catalogo.getVideojuegos());
-        System.out.println("Catálogo exportado con éxito a CSV.");
     }
     
     public Videojuego buscarPorId(int id) {

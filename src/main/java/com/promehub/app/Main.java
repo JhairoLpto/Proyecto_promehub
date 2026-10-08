@@ -26,6 +26,7 @@ public class Main {
         
         do {
             entradaUser = sc.pedirNumero("""
+                
                 ========================================
                          PROMEHUB DATA EXCHANGE
                 ========================================
@@ -43,8 +44,13 @@ public class Main {
                 case 1:
                     String rutaCsv = sc.pideTexto("Introduce la ruta del fichero CSV a cargar (ej: datos/videojuegos.csv):");
                     try {
-                        gc.cargarDesdeCSV(rutaCsv);
+                        var resultado = gc.cargarDesdeCSV(rutaCsv);
                         System.out.println("\nCatálogo cargado correctamente desde el CSV.");
+                        System.out.println("Líneas leídas: " + resultado.getLineasLeidas());
+                        System.out.println("Juegos cargados: " + resultado.getValidos().size());
+                        if (!resultado.getErrores().isEmpty()) {
+                            System.out.println("Errores encontrados: " + resultado.getErrores().size());
+                        }
                     } catch (Exception e) {
                         System.err.println("\n[ERROR] No se pudo cargar el CSV: " + e.getMessage());
                     }
