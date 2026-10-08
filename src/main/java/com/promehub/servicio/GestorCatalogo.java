@@ -9,6 +9,8 @@ import jakarta.xml.bind.JAXBException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class GestorCatalogo {
@@ -46,6 +48,36 @@ public class GestorCatalogo {
         Path ruta = Paths.get(rutaFichero);
         this.catalogo = gestorXML.importarXml(ruta);
         System.out.println("Catálogo cargado con éxito desde XML.");
+    }
+    
+    public void exportarCsv(String rutaFichero) throws Exception {
+        if (this.catalogo.getVideojuegos().isEmpty()) {
+            throw new Exception("El catálogo está vacío. No hay datos para exportar.");
+        }
+        Path ruta = Paths.get(rutaFichero);
+        gestorCSV.exportarArchivo(ruta, this.catalogo.getVideojuegos());
+        System.out.println("Catálogo exportado con éxito a CSV.");
+    }
+    
+    public Videojuego buscarPorId(int id) {
+        for (Videojuego v : catalogo.getVideojuegos()) {
+            if (v.getId() == id) {
+                return v;
+            }
+        }
+        return null;
+    }
+    
+    public List<Videojuego> buscarPorTitulo(String titulo) {
+        List <Videojuego> coincidencias = new ArrayList <>();
+        String tituloBusqueda = titulo.toLowerCase().trim();
+        
+        for (Videojuego v : catalogo.getVideojuegos()) {
+            if (v.getTitulo().toLowerCase().contains(tituloBusqueda)) {
+                coincidencias.add(v);
+            }
+        }
+        return coincidencias;
     }
     
     public Catalogo getCatalogo() {

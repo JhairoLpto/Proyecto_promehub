@@ -80,4 +80,27 @@ public class GestorCSV {
                     + " '" + valor + "' no es un número decimal válido", e);
         }
     }
+    
+    public void exportarArchivo(Path ruta, List<Videojuego> videojuegos) throws IOException {
+        List<String> lineas = new ArrayList<>();
+        // Cabecera del fichero CSV
+        lineas.add("id,titulo,plataforma,genero,precio,stock,codigoProveedor");
+        
+        // Formatear cada videojuego a una línea CSV
+        for (Videojuego v : videojuegos) {
+            String codigoProv = (v.getCodigoProveedor() != null) ? v.getCodigoProveedor() : "";
+            String linea = String.format(java.util.Locale.US, "%d,%s,%s,%s,%.2f,%d,%s",
+                v.getId(),
+                v.getTitulo(),
+                v.getPlataforma(),
+                v.getGenero(),
+                v.getPrecio(),
+                v.getStock(),
+                codigoProv);
+            lineas.add(linea);
+        }
+        
+        // Escribir todas las líneas en el fichero especificado
+        Files.write(ruta, lineas, StandardCharsets.UTF_8);
+    }
 }
