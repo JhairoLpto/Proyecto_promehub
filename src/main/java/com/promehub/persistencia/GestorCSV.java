@@ -29,7 +29,10 @@ public class GestorCSV {
         int lineasLeidas = 0;
 
         try (BufferedReader bf = Files.newBufferedReader(ruta, StandardCharsets.UTF_8)) {
-            bf.readLine();
+            String cabecera = bf.readLine();
+            if (cabecera == null) {
+                return new ResultadoCarga(validos, errores, 0);
+            }
             String linea;
             int numLinea = 1;
             while ((linea = bf.readLine()) != null) {
@@ -60,6 +63,13 @@ public class GestorCSV {
         int id = convertirEntero(campos[0], "id", numLinea);
         double precio = convertirDecimal(campos[4], "precio", numLinea);
         int stock = convertirEntero(campos[5], "stock", numLinea);
+        
+        if (precio < 0) {
+            throw new RegistroInvalidoException("Línea " + numLinea + ": el precio no puede ser negativo (" + precio + ")");
+        }
+        if (stock < 0) {
+            throw new RegistroInvalidoException("Línea " + numLinea + ": el stock no puede ser negativo (" + stock + ")");
+        }
         return new Videojuego(id, campos[1], campos[2], campos[3], precio, stock, campos[6]);
     }
 
